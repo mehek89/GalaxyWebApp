@@ -1,39 +1,34 @@
 pipeline {
     agent any
-
-    environment {
-        TOMCAT_HOME = "C:\\apache-tomcat-9.0.73" // Change this to your Tomcat 9 installation path
+    tools {
+        jdk 'JDK 21'
+        maven 'Maven'
     }
-
     stages {
-        stage('Checkout') {
+        stage('Checkout SCM') {
             steps {
-                git branch: 'main', url: 'https://github.com/mehek89/GalaxyWebApp.git'
+                checkout scm
             }
         }
-
         stage('Build') {
             steps {
-                echo "Building GalaxyWebApp..."
-                bat 'mvn clean package'  // Windows command to build with Maven
+                echo 'Building GalaxyWebApp...'
+                bat 'mvn clean package'
             }
         }
-
         stage('Deploy') {
             steps {
-                echo "Deploying GalaxyWebApp to Tomcat 9..."
-                // Copy the WAR file to Tomcat's webapps folder
-                bat "copy target\\GalaxyWebApp.war %TOMCAT_HOME%\\webapps\\"
+                echo 'Deploying GalaxyWebApp...'
+                bat 'copy target\\GalaxyWebApp.war C:\\apache-tomcat-10.0.27\\webapps /Y'
             }
         }
     }
-
     post {
-        success { 
-            echo 'Pipeline completed successfully!' 
+        success {
+            echo 'Pipeline completed successfully!'
         }
-        failure { 
-            echo 'Pipeline failed. Check console output!' 
+        failure {
+            echo 'Pipeline failed! Check console output.'
         }
     }
 }
