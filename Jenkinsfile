@@ -1,8 +1,8 @@
 pipeline {
     agent any
     tools {
-        jdk 'JDK 21'
-        maven 'Maven'
+        jdk 'JDK21'       // Match exact name in Jenkins
+        maven 'Maven3'    // Match exact name in Jenkins
     }
     stages {
         stage('Checkout SCM') {
