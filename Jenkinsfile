@@ -17,11 +17,13 @@ pipeline {
             }
         }
         stage('Deploy') {
-            steps {
-                echo 'Deploying GalaxyWebApp...'
-                bat 'copy target\\GalaxyWebApp.war C:\\apache-tomcat-10.0.27\\webapps /Y'
-            }
-        }
+    steps {
+        echo 'Deploying GalaxyWebApp...'
+        // Updated path to your Tomcat 9 webapps folder
+        bat 'copy target\\GalaxyWebApp.war C:\\Users\\Mahak Modi\\Downloads\\apache-tomcat-9.0.111-windows-x64\\apache-tomcat-9.0.111\\webapps /Y'
+    }
+}
+
     }
     post {
         success {
